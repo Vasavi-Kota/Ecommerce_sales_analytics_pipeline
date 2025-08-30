@@ -1,0 +1,34 @@
+{
+  "evaluation": {
+    "source": {
+      "name": "process_name",
+      "display": "process_name",
+      "aggregation": "AGGREGATION_UNSPECIFIED"
+    },
+    "comparison_operator": "IS_NULL",
+    "threshold": {
+      "value": {
+        "string_value": ""
+      }
+    },
+    "notification": {
+      "retrigger_seconds": 0,
+      "notify_on_ok": false
+    }
+  },
+  "schedule": {
+    "quartz_cron_schedule": "42 0 22 * * ?",
+    "timezone_id": "UTC"
+  },
+  "query_lines": [
+    "SELECT \r",
+    "    process_name,\r",
+    "    status,\r",
+    "    message,\r",
+    "    timestamp\r",
+    "FROM gold.`e-commerce-sales`.`audit_logs`\r",
+    "WHERE status = 'Failed'\r",
+    "ORDER BY timestamp DESC\r",
+    "LIMIT 10;\r"
+  ]
+}
